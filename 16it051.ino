@@ -1,0 +1,34 @@
+
+int redLed = 12;
+int blueLed = 11;
+
+int buzzer = 13;
+int smokeA0 = A3;
+// Your threshold value
+int sensorThres =30;
+
+void setup() {
+  pinMode(redLed, OUTPUT);
+  pinMode(blueLed, OUTPUT);
+  pinMode(buzzer, OUTPUT);
+  pinMode(smokeA0, INPUT);
+  Serial.begin(9600);
+}
+void loop(){
+  int analogSensor = analogRead(smokeA0);
+
+  Serial.print("Pin A0: ");
+  Serial.println(analogSensor);
+ if (analogSensor > sensorThres)
+  {
+    digitalWrite(redLed, HIGH);
+    digitalWrite(blueLed, LOW);
+   tone(buzzer, 1000, 200);
+  }
+  else
+  {
+    digitalWrite(redLed, LOW);
+    digitalWrite(blueLed, HIGH);
+    noTone(buzzer);
+  }
+}
